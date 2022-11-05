@@ -2,10 +2,12 @@
 <html>
 
 <head>
-    <title>360View</title>
+    <title>Virtual Tour Kantin FILKOM UB</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <script src="dist/aframe-href-component.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@5/dist/aframe-event-set-component.min.js"></script>
 </head>
 
 <body>
@@ -14,22 +16,56 @@
         <a-assets>
             <img id="KANTIN_03" src="assets/kantin_03.jpg" />
             <img id="NAV_ICON" src="assets/nav_icon.png" />
+            <img id="INFO_ICON" src="assets/info_icon.png" />
+            <img id="close" src="assets/close_icon.png" />
         </a-assets>
 
 
-        <a-sky src="#KANTIN_03" rotation="0 -90 0"></a-sky>
+        <a-sky src="#KANTIN_03" rotation="0 180 0"></a-sky>
 
-        <a-image src="#NAV_ICON" height="1" width="1" material="opacity: 0.8" position="0 1.3 7" rotation="60 0 45"
-            look-at="#cursor" link="href: kantin_02.html"
+        <a-image src="#NAV_ICON" height="1.4" width="1.4" material="opacity: 0.8" position="-5 0.8 2.5"
+            rotation="30 90 -30" look-at="#cursor" link="href: kantin_04.html"
             event-set__mouseenter="_event: mouseenter; scale: 1.2 1.2 1; material.opacity: 1"
             event-set__mouseleave="_event: mouseleave; scale: 1 1 1; material.opacity: 0.5">
         </a-image>
 
-        <a-image src="#NAV_ICON" height="1" width="1" material="opacity: 0.8" position="-1 1.3 7" rotation="60 0 90"
-            look-at="#cursor" link="href: kantin_04.html"
+        <a-image src="#NAV_ICON" height="1.4" width="1.4" material="opacity: 0.8" position="-5 0.8 4"
+            rotation="30 90 70" look-at="#cursor" link="href: kantin_02.html"
             event-set__mouseenter="_event: mouseenter; scale: 1.2 1.2 1; material.opacity: 1"
             event-set__mouseleave="_event: mouseleave; scale: 1 1 1; material.opacity: 0.5">
         </a-image>
+
+        <!--Warung Mie-->
+        <a-image id="mieTrigger" src="#INFO_ICON" height="0.8" width="0.8" material="opacity: 1" position="0 3.2 0"
+            rotation="0 0 0" event-set__mouseenter="_event: mouseenter; scale: 1.2 1.2 1"
+            event-set__tarvis01="_event: click; _target: #mieInfo; material.visible: true"
+            event-set__tarvis02="_event: click; _target: #mieInfoText1; visible: true"
+            event-set__tarvis03="_event: click; _target: #mieInfoText2; visible: true"
+            event-set__tarvis04="_event: click; _target: #mieInfoTextTitle; visible: true"
+            event-set__tarvis05="_event: click; _target: #mieInfoClose; material.visible: true"
+            event-set__resvis="_event: click; material.visible: false"></a-image>
+
+        <a-entity id="mieInfo" geometry="primitive: plane; height: 3; width: 5.25"
+            material="color: #000080; opacity: 1; visible: false" position="0 3.2 0" rotation="0 0 0">
+            <a-entity id="mieInfoText1" visible="false"
+                text="value: 1. Mie Single\n2. Mie Double; color: #FFFFFF; width: 8; align: left; shader: msdf; font: https://raw.githubusercontent.com/etiennepinchon/aframe-fonts/master/fonts/cabin/Cabin-Medium.json"
+                position="1.5 -0.5 0" rotation="0 0 0"></a-entity>
+            <a-entity id="mieInfoText2" visible="false"
+                text="value: Rp7000\nRp10.000; color: #FFFFFF; width: 8; align: right; shader: msdf; font: https://raw.githubusercontent.com/etiennepinchon/aframe-fonts/master/fonts/cabin/Cabin-Medium.json"
+                position="-1.5 -0.5 0" rotation="0 0 0"></a-entity>
+            <a-entity id="mieInfoTextTitle" visible="false"
+                text="value: Daftar Menu; color: #FFFFFF; width: 8; align: center; shader: msdf; font: https://raw.githubusercontent.com/etiennepinchon/aframe-fonts/master/fonts/cabin/Cabin-Medium.json"
+                position="0 1 0" rotation="0 0 0"></a-entity>
+            <a-image id="mieInfoClose" src="#close" height="0.75" width="0.75" material="alphaTest: 0.5; visible: false"
+                position="2 1 0" event-set__mouseenter="_event: mouseenter; scale: 1.2 1.2 1"
+                event-set__mouseleave="_event: mouseleave; scale: 1 1 1"
+                event-set__tarvis="_event: click; _target: #mieTrigger; material.visible: true"
+                event-set__resvis01="_event: click; _target: #mieInfo; material.visible: false"
+                event-set__resvis02="_event: click; _target: #mieInfoText1; visible: false"
+                event-set__resvis03="_event: click; _target: #mieInfoText2; visible: false"
+                event-set__resvis04="_event: click; _target: #mieInfoTextTitle; visible: false"
+                event-set__resvis05="_event: click; material.visible: false"></a-image>
+        </a-entity>
 
         <a-entity position="0 1.8 4">
             <a-camera id="camera" look-controls="" wasd-controls-enabled="false" camera="active: true"

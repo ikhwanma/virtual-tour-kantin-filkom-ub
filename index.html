@@ -16,17 +16,47 @@
         <a-assets>
             <img id="KANTIN_01" src="assets/kantin_01.jpg" />
             <img id="NAV_ICON" src="assets/nav_icon.png" />
+            <img id="INFO_ICON" src="assets/info_icon.png" />
+            <img id="close" src="assets/close_icon.png" />
         </a-assets>
 
 
         <a-sky src="#KANTIN_01" rotation="0 -90 0"></a-sky>
 
-        <a-image src="#NAV_ICON" height="1" width="1" material="opacity: 0.8" position="0 1.2 2" rotation="45 0 45"
+        <a-image src="#NAV_ICON" height="1" width="1" material="opacity: 0.8" position="0 1 2" rotation="45 0 45"
             look-at="#cursor" link="href: kantin_02.html" animation="property: radius; from: 0.01; to: 0.7; dur: 1000;
             easing: easeInOutSine; dir: alternate; loop: true;"
             event-set__mouseenter="_event: mouseenter; scale: 1.2 1.2 1; material.opacity: 1"
             event-set__mouseleave="_event: mouseleave; scale: 1 1 1; material.opacity: 0.5">
         </a-image>
+
+        <!--Meja-->
+        <a-image id="mejaTrigger" src="#INFO_ICON" height="0.7" width="0.7" material="opacity: 1" position="-1 1 0"
+            rotation="0 0 0" event-set__mouseenter="_event: mouseenter; scale: 1.2 1.2 1"
+            event-set__tarvis01="_event: click; _target: #mejaInfo; material.visible: true"
+            event-set__tarvis02="_event: click; _target: #mejaInfoText1; visible: true"
+            event-set__tarvis03="_event: click; _target: #mejaInfoText2; visible: true"
+            event-set__tarvis04="_event: click; _target: #mejaInfoClose; material.visible: true"
+            event-set__resvis="_event: click; material.visible: false"></a-image>
+
+        <a-entity id="mejaInfo" geometry="primitive: plane; height: 3; width: 8"
+            material="color: #000080; opacity: 1; visible: false" position="-1 2 -3" rotation="0 0 0">
+            <a-entity id="mejaInfoText1" visible="false"
+                text="value: Dapat digunakan untuk makan dan minum akan tetapi tidak dapat digunakan untuk nongkrong karena sinyal wifi susah, tidak ada colokan, dan kursi tidak ada sandaran dan keras; color: #FFFFFF; width: 8; align: left; shader: msdf; font: https://raw.githubusercontent.com/etiennepinchon/aframe-fonts/master/fonts/cabin/Cabin-Medium.json"
+                position="0 -0.5 0" rotation="0 0 0"></a-entity>
+            <a-entity id="mejaInfoText2" visible="false"
+                text="value: - Meja dan Kursi; color: #FFFFFF; width: 8; align: top; shader: msdf; font: https://raw.githubusercontent.com/etiennepinchon/aframe-fonts/master/fonts/cabin/Cabin-Medium.json"
+                position="0 0.7 0" rotation="0 0 0"></a-entity>
+            <a-image id="mejaInfoClose" src="#close" height="0.75" width="0.75"
+                material="alphaTest: 0.5; visible: false" position="3.5 1 0"
+                event-set__mouseenter="_event: mouseenter; scale: 1.2 1.2 1"
+                event-set__mouseleave="_event: mouseleave; scale: 1 1 1"
+                event-set__tarvis="_event: click; _target: #mejaTrigger; material.visible: true"
+                event-set__resvis01="_event: click; _target: #mejaInfo; material.visible: false"
+                event-set__resvis02="_event: click; _target: #mejaInfoText1; visible: false"
+                event-set__resvis03="_event: click; _target: #mejaInfoText2; visible: false"
+                event-set__resvis04="_event: click; material.visible: false"></a-image>
+        </a-entity>
 
         <a-entity position="0 1.8 4">
             <a-camera id="camera" look-controls="" wasd-controls-enabled="false" camera="active: true"
